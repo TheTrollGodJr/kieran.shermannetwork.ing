@@ -1,0 +1,49 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Test SSH Connection
+        run: |
+          ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo 'SSH connection successful!'"
+
+      - name: Deploy to server
+        run: |
+          ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            cd /var/www/kieran.trollgod.xyz
+            eval $(ssh-agent)
+            ssh-agent
+            ssh-add /var/www/.ssh/kieran.trollgod.xyz
+            git stash #stash any local changes during testing
+            git pull
+            source .venv/bin/activate
+            pip install -r requirements.txt
+            sudo systemctl restart kieran.shermannetwork.ing
+            sudo systemctl restart nginx
+            exit
+          EOF
+        env:
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_IP: shermannetwork.ing
+      - name: cleanup
+        run: |
+          rm ~/.ssh/*
+          echo removed ssh key

@@ -28,7 +28,7 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-            cd /var/www/kieran.trollgod.xyz
+            cd /var/www/kieran.shermannetwork.ing
             eval $(ssh-agent)
             ssh-agent
             ssh-add /var/www/.ssh/kieran.trollgod.xyz

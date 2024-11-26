@@ -10,11 +10,8 @@ def index():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    #print()
-    #exit(0)
     host = os.getenv("HOST")
     debug = os.getenv("DEBUG", "false").lower() == "true"
     port = int(os.getenv("PORT"))
-    #print(f"{host}:{port}")
 
     app.run(host=host, debug=debug, port=port)

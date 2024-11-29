@@ -1,0 +1,140 @@
+body {
+    background-color: #292828; /* Darker background for contrast */
+    color: rgb(212, 209, 203); /* Light gray text */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+header {
+    padding: 20px;
+    text-align: center;
+    background-color: rgb(26, 28, 29); /* Darker header background */
+    border-bottom: 1px solid rgb(118, 109, 97); /* Subtle border */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Soft shadow */
+}
+header h1 {
+    color: #1ABC9C; /* Teal for the title */
+    margin: 0; /* Remove margin */
+}
+header p {
+    color: #E67E22; /* Soft orange for the subtitle */
+    margin: 5px 0 0; /* Small margin for the subtitle */
+}
+header a {
+    color: #E67E22; /* Soft orange for the subtitle */
+    margin: 5px 0 0; /* Small margin for the subtitle */
+}
+.main {
+    display: flex;
+    flex: 1; /* Take remaining space */
+}
+.hero {
+    padding: 50px 20px; /* Reduced padding */
+    text-align: center;
+    color: rgb(232, 230, 227);
+    /*color: #FFFFFF; /* White text for hero */
+    position: relative;
+    flex: 2; /* Hero takes more space */
+    background-color: rgb(35, 35, 35); /* Dark gray background for hero */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+}
+.hero h1 {
+    font-size: 2.5em; /* Slightly smaller for balance */
+    margin: 0;
+}
+
+.sidebar {
+    flex: 1; /* Sidebar width */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #202324;
+}
+
+.section-card {
+    background-color: #3a3939; /* Medium gray for cards */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(26, 188, 156, 0.5); /* Teal shadow on hover */
+    border: 2px solid #E67E22; /* Soft orange border on hover */
+}
+
+.section-card h3 {
+    margin: 15px 0 10px;
+    color: #1ABC9C; /* Teal color for section headings */
+}
+
+.section-card p {
+    font-size: 0.9em;
+    color: #B0B0B0; /* Light gray for card text */
+}
+
+.spacer {
+    margin-top: 30px;
+}
+
+.hero .columns {
+    column-count: 2; /* Number of columns */
+    column-gap: 20px; /* Space between columns */
+    margin-top: 20px; /* Margin to separate from header */
+}
+.column {
+    background-color: rgb(40,40,40); /* Dark gray background for columns */
+    border: 2px solid #1ABC9C; /* Teal border for distinction */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Padding inside each column */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Light shadow */
+    break-inside: avoid; /* Avoid breaking inside columns */
+    padding-bottom: 20px;
+}
+.column p {
+    color: #91a3af; /* Light blue for column text */
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #3C3C3C; /* Darker gray for footer */
+    border-top: 1px solid #444; /* Lighter border */
+}
+
+footer p {
+    margin: 5px 0;
+    color: #E67E22; /* Soft orange for footer text */
+}
+
+/* Button styles for links */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1ABC9C; /* Teal button background */
+    color: #FFFFFF; /* White text for buttons */
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #16A085; /* Darker teal on hover */
+}
+
+small {
+    color: #E67E22;
+}
+
+a {
+    color: #1ABC9C;
+    text-decoration: none;
+}

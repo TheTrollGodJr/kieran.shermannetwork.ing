@@ -9,6 +9,26 @@ load_dotenv(os.path.join(os.path.dirname(os.path.realpath(__file__)), "credentia
 def index():
     return render_template("index.html")
 
+@app.route("/coding")
+def coding():
+    return render_template("coding.html")
+
+@app.route("/conlangs")
+def conlangs():
+    return render_template("conlangs.html")
+
+@app.route("/photography")
+def photography():
+    return render_template("photography.html")
+
+@app.route("/picture-time")
+def pictureTime():
+    return None
+
+@app.route("/resume")
+def resume():
+    return render_template("resume.html")
+
 if __name__ == "__main__":
     host = os.getenv("HOST")
     debug = os.getenv("DEBUG", "false").lower() == "true"

@@ -4,149 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kieran's Portoflio</title>
-    <style>
-        body {
-            background-color: #333; /* Darker background for contrast */
-            color: #E0E0E0; /* Light gray text */
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        header {
-            padding: 20px;
-            text-align: center;
-            background-color: #222; /* Darker header background */
-            border-bottom: 1px solid #444; /* Subtle border */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Soft shadow */
-        }
-        header h1 {
-            color: #1ABC9C; /* Teal for the title */
-            margin: 0; /* Remove margin */
-        }
-        header p {
-            color: #E67E22; /* Soft orange for the subtitle */
-            margin: 5px 0 0; /* Small margin for the subtitle */
-        }
-        header a {
-            color: #E67E22; /* Soft orange for the subtitle */
-            margin: 5px 0 0; /* Small margin for the subtitle */
-        }
-        .main {
-            display: flex;
-            flex: 1; /* Take remaining space */
-        }
-        .hero {
-            padding: 50px 20px; /* Reduced padding */
-            text-align: center;
-            color: #FFFFFF; /* White text for hero */
-            position: relative;
-            flex: 2; /* Hero takes more space */
-            background-color: #444; /* Dark gray background for hero */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-        }
-        .hero h1 {
-            font-size: 2.5em; /* Slightly smaller for balance */
-            margin: 0;
-        }
-
-        .sidebar {
-            flex: 1; /* Sidebar width */
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .section-card {
-            background-color: #424242; /* Medium gray for cards */
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(26, 188, 156, 0.5); /* Teal shadow on hover */
-            border: 2px solid #E67E22; /* Soft orange border on hover */
-        }
-
-        .section-card h3 {
-            margin: 15px 0 10px;
-            color: #1ABC9C; /* Teal color for section headings */
-        }
-
-        .section-card p {
-            font-size: 0.9em;
-            color: #B0B0B0; /* Light gray for card text */
-        }
-
-        .spacer {
-            margin-top: 30px;
-        }
-
-        .hero .columns {
-            column-count: 2; /* Number of columns */
-            column-gap: 20px; /* Space between columns */
-            margin-top: 20px; /* Margin to separate from header */
-        }
-        .column {
-            background-color: #444; /* Dark gray background for columns */
-            border: 2px solid #1ABC9C; /* Teal border for distinction */
-            border-radius: 5px; /* Rounded corners */
-            padding: 10px; /* Padding inside each column */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Light shadow */
-            break-inside: avoid; /* Avoid breaking inside columns */
-            padding-bottom: 20px;
-        }
-        .column p {
-            color: #3498DB; /* Light blue for column text */
-        }
-
-        footer {
-            padding: 20px;
-            text-align: center;
-            background-color: #3C3C3C; /* Darker gray for footer */
-            border-top: 1px solid #444; /* Lighter border */
-        }
-
-        footer p {
-            margin: 5px 0;
-            color: #E67E22; /* Soft orange for footer text */
-        }
-
-        /* Button styles for links */
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #1ABC9C; /* Teal button background */
-            color: #FFFFFF; /* White text for buttons */
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #16A085; /* Darker teal on hover */
-        }
-
-        small {
-            color: #E67E22;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 
 <header>
     <h1>Kieran's Portfolio</h1>
     <!--<p>A collection of my projects and hobbies</p>-->
-    <a href="resume">Resume</a>
+    <a href="/resume">Resume</a>
     <a href=""></a>
 </header>
 
@@ -167,7 +32,7 @@
                 <small><i>My conlangs can be found in the conlangs card to the right</i></small>
             </div>
             <div class="column">
-                <div style="margin-top: 40px;"></div>
+                <!--<div style="margin-top: 40px;"></div>-->
                 <h2>Robotics</h2>
                 <p>As mentioned, I started with robotics in 5th grade. I continued doing robotics until my junior year of high school <i>(7 years)</i>. In 5th and 6th grade I did basic robotics with Lego Mindstorms before moving into VEX. </p>
                 <P>I did VEXIQ through junior high. My first year, we made it to the State Championship and came third place which qualified us for the World Championship. Unforunately we weren't able to go because of Covid. The next year was pretty similar but we did much better overall with our experience from the year before. Second year, we again qualified for Worlds but still couldn't go.</P>
@@ -177,7 +42,7 @@
                 <p>I have always liked traveling. Since I was young I have always wanted to go see different places. So far, I have been to the entire west side of the US, and a small section of the east coast <i>(New York area)</i>. At the time of writing this, we have a trip to Ireland planned for May/June of 2025. </p>
                 <p>At some point in my life I want to take a year and drive through every state in the continental US. I would also like to travel to as many countries as I can. Currently, a lot of the places I would like to visit are in Europe or Asia. While English is the language spoken world-wide, I would still like to learn at least a little bit of the language that is spoken to each country I visit.</p>
                 <div class="spacer"></div>
-                <div style="margin-top: 35px;"></div>
+                <!--<div style="margin-top: 35px;"></div>-->
             </div>
         </div>
     </div>
@@ -187,22 +52,22 @@
         <div class="section-card">
             <h3>Coding Projects</h3>
             <p>Most of my coding projects I've worked on in several languages</p>
-            <a href="coding.html" class="btn">Learn More</a>
+            <a href="/coding" class="btn">Learn More</a>
         </div>
         <div class="section-card">
             <h3>Conlangs</h3>
             <p>A collection of my constructed languages</p>
-            <a href="conlangs.html" class="btn">Learn More</a>
+            <a href="/conlangs" class="btn">Learn More</a>
         </div>
         <div class="section-card">
             <h3>Photography</h3>
             <p>A collection of photos I've taken</p>
-            <a href="photography.html" class="btn">Learn More</a>
+            <a href="/photography" class="btn">Learn More</a>
         </div>
         <div class="section-card">
             <h3>Picture Time</h3>
             <p>My daily picture project -- and HS Capstone project</p>
-            <a href="pictureTime.html" class="btn">Learn More</a>
+            <a href="/pictureTime" class="btn">Learn More</a>
         </div>
     </div>
 </div>

@@ -1,9 +1,18 @@
 from flask import Flask, render_template
+
+#from pictureTime.routes import mainBP
+
 from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
 load_dotenv(os.path.join(os.path.dirname(os.path.realpath(__file__)), "credentials.env"))
+
+PATH = __file__.rsplit("\\", 1)[0].replace("\\", "/")
+UPLOAD_FOLDER = PATH + "pictureTime/data/tempfiles"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["ALLOWED_EXTENSIONS"] = {'png', 'jpg', 'jpeg'}
+app.config["FILES_DIRECTORY"] = f"{PATH}/static"
 
 @app.route("/")
 def index():

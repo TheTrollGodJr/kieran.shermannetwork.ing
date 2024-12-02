@@ -5,7 +5,8 @@ from PIL import Image
 import json
 import os
 import time
-import av
+#import av
+from flask import current_app
 
 '''
 USES MEDIAPIPE V0.10.14
@@ -14,7 +15,7 @@ USES MEDIAPIPE V0.10.14
 mpFaceMesh = mp.solutions.face_mesh
 mpDrawing = mp.solutions.drawing_utils
 
-PATH = __file__.rsplit("\\", 1)[0].replace("\\","/")
+#PATH = __file__.rsplit("\\", 1)[0].replace("\\","/")
 
 def loadJson(filename=str, key=str):
     """
@@ -25,7 +26,7 @@ def loadJson(filename=str, key=str):
 
     Returns a dictionary with the JSON data
     """
-    with open(f"{PATH}/data/{filename}.json") as f:
+    with open(f"{current_app.config['DATA_FOLDER']}/{filename}.json") as f:
         if key != "":
             return json.load(f)[key]
         else:
@@ -38,11 +39,11 @@ def setPhotoNum(number=int):
     Parameters:
         number (int): The new value of photo_number in info.json
     """
-    with open(f"{PATH}/data/info.json", "r") as f:
+    with open(f"{current_app.config['DATA_FOLDER']}/info.json", "r") as f:
         data = json.load(f)
     data['photo_number'] = number
 
-    with open(F"{PATH}/data/info.json", "w") as f:
+    with open(F"{current_app.config['DATA_FOLDER']}/info.json", "w") as f:
         json.dump(data, f, indent=4)
 
 def setInfoStatus(jsonKey=str, newValue=str, deleteNewValue=bool):
@@ -54,7 +55,7 @@ def setInfoStatus(jsonKey=str, newValue=str, deleteNewValue=bool):
         newValue (str): Appends newValue to the key list
         deleteNewValue (bool): Deletes newValue from the key list instead of appending it
     """
-    with open(f"{PATH}/data/status.json", "r") as f:
+    with open(f"{current_app.config['DATA_FOLDER']}/status.json", "r") as f:
         data = json.load(f)
 
     keyData: list = data[jsonKey]
@@ -64,7 +65,7 @@ def setInfoStatus(jsonKey=str, newValue=str, deleteNewValue=bool):
         keyData.append(newValue)
     data[jsonKey] = keyData
 
-    with open(f"{PATH}/data/status.json", "w") as f:
+    with open(f"{current_app.config['DATA_FOLDER']}/status.json", "w") as f:
             json.dump(data, f, indent=4)
 
 """
@@ -252,29 +253,52 @@ def processImg(filepath=str):
     rotated = horizontalEyeAlign(img, deltaX, deltaY)
     resized = resize(rotated, 700, deltaX, deltaY)
     
-    cv2.imwrite(f"{PATH}/data/tempfiles/temp.png", resized)
+    cv2.imwrite(f"{current_app.config['UPLOAD_FOLDER']}/temp.png", resized)
     resizedRGB = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
     leftEye, rightEye = processFace(resized, resizedRGB)
     
-    imgPIL = Image.open(f"{PATH}/data/tempfiles/temp.png")
-    blackBackground = Image.open(f"{PATH}/data/3000x5000.png")
+    imgPIL = Image.open(f"{current_app.config['DATA_FOLDER']}/tempfiles/temp.png")
+    blackBackground = Image.open(f"{current_app.config['DATA_FOLDER']}/3000x5000.png")
     Image.Image.paste(blackBackground, imgPIL, (1200 - leftEye[0], 2500 - leftEye[1]))
 
     photoNum = loadJson("info", "photo_number")
     setPhotoNum(photoNum + 1)
 
-    blackBackground.save(f"{PATH}/static/{photoNum}-processed.png")
+    #blackBackground.save(f"{current_app.config['FILES_DIRECTORY']}/{photoNum}-processed.png")
+    resizeAndCompress(blackBackground, f"{current_app.config['FILES_DIRECTORY']}/{photoNum}-processed.png", 1080)
 
-    while os.path.isfile(f"{PATH}/static/{photoNum}-processed.png") == False:
+    while os.path.isfile(f"{current_app.config['FILES_DIRECTORY']}/{photoNum}-processed.png") == False:
         time.sleep(.1)
 
-    appendFrame(f"{PATH}/static/test.mp4", f"{PATH}/static/test.mp4", f"{PATH}/static/{photoNum}-processed.png")
+    #appendFrame(f"{PATH}/static/test.mp4", f"{PATH}/static/test.mp4", f"{PATH}/static/{photoNum}-processed.png")
 
-    os.remove(f"{PATH}/data/tempfiles/temp.png")
-    os.rename(filepath, f"{PATH}/static/{photoNum}.png")
+    ###### CHANGE CODE FOR ADDING FRAME
+
+
+    os.remove(f"{current_app.config['UPLOAD_FOLDER']}/temp.png")
+    os.rename(filepath, f"{current_app.config['FILES_DIRECTORY']}/{photoNum}.png")
 
     setInfoStatus("original", f"{photoNum}.png", False)
     setInfoStatus("processed", f"{photoNum}-processed.png", False)
+
+def resizeAndCompress(img, output_image_path, max_size=1080):
+    """
+    
+    """
+    if img.mode == "RGBA":
+        img = img.convert('RGB')
+
+    width, height = img.size
+    if width > height:
+        new_width = max_size
+        new_height = int((max_size / width) * height)
+    else:
+        new_height = max_size
+        new_width = int((max_size / height) * width)
+
+    img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+
+    img.save(output_image_path, format="JPEG", quality=70, optimize=True)
 
 """
     Video Processing
@@ -300,6 +324,7 @@ def compileVideo(framesFolder=str, outputPath=str, fps=int):
 
     videoWriter.release()
 
+'''
 def appendFrame(videoPath=str, outputPath=str, framePath=str):
     """
     Append a single frame to the end of a mp4 video. Used for adding another processed image to the face timelapse
@@ -326,10 +351,13 @@ def appendFrame(videoPath=str, outputPath=str, framePath=str):
     
     inputContainer.close()
     outputContainer.close()
+    '''
+
 
 """
     Processing All Original Photos
 """
+'''
 def processAllOriginals():
     """
     Process all original photos using processImg() and output them all into the specified output folder
@@ -347,7 +375,8 @@ def processAllOriginals():
 
     for i in range(fileCount):
         processImg(f"{outputFolderOriginal}/{i+1}.png", tempFolder, outputFolderOriginal, outputFolderResized, background)
-
+'''
+        
 if __name__ == "__main__":
     #filePath = f"{PATH}/data/tempfiles/" + os.listdir(f"{PATH}/data/tempfiles")[0]
     #processImg(filepath=f"{PATH}/data/tempfiles/f.jpg")

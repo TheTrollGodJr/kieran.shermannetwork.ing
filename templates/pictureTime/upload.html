@@ -86,7 +86,7 @@
     <div class="container">
         <h1>Upload Photo</h1>
         <!-- Form to upload from the device -->
-        <form method="post" action="/" enctype="multipart/form-data">
+        <form method="post" action="/picture-time/upload" enctype="multipart/form-data">
             <div class="file-input-container">
                 <label class="file-input-label" for="file-input">Choose a File</label>
                 <input type="file" id="file-input" name="file" accept="image/*">
@@ -97,10 +97,10 @@
     </div>
     <!-- Logout Button -->
     <div class="bottom-container">
-        <form method="get" action="/logout">
+        <form method="get" action="/picture-time/logout">
             <button type="submit">Logout</button>
         </form>
-        <form method="get" action="/video">
+        <form method="get" action="/picture-time/video">
             <button type="submit">Video</button>
         </form>
     </div>

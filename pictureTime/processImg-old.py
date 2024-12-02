@@ -4,6 +4,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 import json
 import os
+from flask import current_app
 
 '''
 USES MEDIAPIPE V0.10.14
@@ -12,15 +13,15 @@ USES MEDIAPIPE V0.10.14
 mpFaceMesh = mp.solutions.face_mesh
 mpDrawing = mp.solutions.drawing_utils
 
-PATH = __file__.rsplit("\\", 1)[0].replace("\\", "/")
+#PATH = __file__.rsplit("\\", 1)[0].replace("\\", "/")
 
 def getPhotoNum():
-    with open(f"{PATH}/data/info.json", "r") as f:
+    with open(f"{current_app.config["PATH"]}/data/info.json", "r") as f:
         data = json.load(f)
     photoNum = data['photo_number']
     data['photo_number'] = photoNum + 1
 
-    with open(f"{PATH}/data/info.json", "w") as f:
+    with open(f"{current_app.config["PATH"]}/data/info.json", "w") as f:
         json.dump(data, f, indent=4)
     
     return photoNum
@@ -103,17 +104,17 @@ def processImg(filepath):
                 leftEye = (int((landmarks.landmark[130].x * img.shape[1] + landmarks.landmark[243].x * img.shape[1]) / 2), int((landmarks.landmark[130].y * img.shape[0] + landmarks.landmark[243].y * img.shape[0]) / 2))
                 rightEye = (int((landmarks.landmark[463].x * img.shape[1] + landmarks.landmark[359].x * img.shape[1]) / 2), int((landmarks.landmark[463].y * img.shape[0] + landmarks.landmark[359].y * img.shape[0]) / 2))
 
-    print(leftEye, rightEye)
+    #print(leftEye, rightEye)
 
     #img = Image.open(f"{PATH}/data/tempfiles/resized.png")
     pilImg = Image.fromarray(cv2.cvtColor(resized, cv2.COLOR_BGR2RGB))
-    background = Image.open(f"{PATH}/data/3000x5000.png")
+    background = Image.open(f"{current_app.config["PATH"]}/data/3000x5000.png")
     Image.Image.paste(background, pilImg, (1000 - leftEye[0], 2000 - leftEye[1]))
-    draw = ImageDraw.Draw(background)
-    draw.ellipse((990,1990, 1010, 2010), fill='red', outline='red')
+    #draw = ImageDraw.Draw(background)
+    #draw.ellipse((990,1990, 1010, 2010), fill='red', outline='red')
     #draw.ellipse((1000 - leftEye[0]-20, 2000 - leftEye[1]-20, 1000 - leftEye[0]+20, 2000 - leftEye[1]+20), fill='blue', outline='blue')
-    print(1000 - leftEye[0], 2000 - leftEye[1])
-    background.save(f"{PATH}/data/tempfiles/{getPhotoNum()}.png")
+    #print(1000 - leftEye[0], 2000 - leftEye[1])
+    background.save(f"{current_app.config["PATH"]}/data/tempfiles/{getPhotoNum()}.png")
 
     '''
     imgRGB = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
@@ -161,4 +162,4 @@ def processImg(filepath):
 
 if __name__ == "__main__":
     #filePath = f"{PATH}/data/tempfiles/" + os.listdir(f"{PATH}/data/tempfiles")[0]
-    processImg(filepath=f"{PATH}/data/tempfiles/e.jpg")
+    processImg(filepath=f"")

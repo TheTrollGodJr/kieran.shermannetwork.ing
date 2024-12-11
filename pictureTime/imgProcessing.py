@@ -46,30 +46,18 @@ def setPhotoNum(number=int):
     with open(F"{current_app.config['DATA_FOLDER']}/info.json", "w") as f:
         json.dump(data, f, indent=4)
 
-def setInfoStatus(jsonKey=str, newValue=str, deleteNewValue=bool):
+def setInfoStatus(jsonKey=str, newValue=str):
     """
     Set info for the status.json file; used for download bot to backup photos. All key values have to be lists.
 
     Parameters:
         jsonKey (str): The json value you want to change
         newValue (str): Appends newValue to the key list
-        deleteNewValue (bool): Deletes newValue from the key list instead of appending it
     """
     with open(f"{current_app.config['DATA_FOLDER']}/status.json", "r") as f:
         data = json.load(f)
 
-    if deleteNewValue: data[jsonKey] = ""
-    else: data[jsonKey] = newValue
-
-    '''
-    keyData: list = data[jsonKey]
-    print(keyData)
-    if deleteNewValue:
-        keyData.remove(newValue)
-    else:
-        keyData.append(newValue)
-    data[jsonKey] = keyData
-    '''
+    data[jsonKey] = newValue
 
     with open(f"{current_app.config['DATA_FOLDER']}/status.json", "w") as f:
             json.dump(data, f, indent=4)

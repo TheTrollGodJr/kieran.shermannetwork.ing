@@ -2,7 +2,7 @@ from . import mainBP
 from flask import render_template, request, redirect, url_for, make_response, send_from_directory, abort, current_app, jsonify
 from werkzeug.utils import secure_filename
 import os
-from .imgProcessing import processImg
+from .imgProcessing import processImg, setInfoStatus
 from .encryption import checkPassword, loadUser
 import json
 
@@ -83,6 +83,24 @@ def status():
     try:
         with open(f"{current_app.config['DATA_FOLDER']}/status.json", "r") as f:
             data = json.load(f)
-        return jsonify(data)
+        return jsonify(data), 200
     except Exception as e:
-        return f"Error: {e}"
+        return f"Error: {e}", 404
+    
+@mainBP.route("/<filename>")
+def download(filename: str):
+    if os.path.exists(f"{current_app.config["FILES_DIRECTORY"]}/{filename}") and filename != "":
+        return send_from_directory(current_app.config["FILES_DIRECTORY"], filename, as_attachment=True), 200
+    return 404
+
+@mainBP.route("/delete/<filename>")
+def delete(filename: str):
+    try:
+        if os.path.exists(f"{current_app.config["FILES_DIRECTORY"]}/{filename}") and filename != "":
+            os.remove(f"{current_app.config["FILES_DIRECTORY"]}/{filename}")
+            if "processed" in filename: setInfoStatus("processed", "")
+            else: setInfoStatus("original", "")
+            return 200
+    except Exception as e:
+        print(f"Error deleting file: {e}")
+        return 404

@@ -4,6 +4,10 @@
 '''
 
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv(os.path.join(os.path.dirname(os.path.realpath(__file__)), "credentials.env"))
 
 def getBackupPhotos():
     pass
@@ -14,7 +18,7 @@ def checkBackupStatus():
 def processVideo():
     pass
 
-def uploadVideo():
+def uploadVideo(apiKey: str):
     pass
 
 def compressVideo():
@@ -25,4 +29,4 @@ def displayError():
     pass
 
 if __name__ == "__main__":
-    pass
+    key = os.getenv("API_KEY")

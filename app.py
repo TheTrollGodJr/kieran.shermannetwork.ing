@@ -29,6 +29,11 @@ def setupUsersJsonFile():
         setup = {"photo_number":0}
         with open(f"{app.config['DATA_FOLDER']}/info.json", "w") as f:
             json.dump(setup, f, indent=4)
+    
+    if not os.path.exists(f"{app.config['DATA_FOLDER']}/status.json"):
+        setup = {"original":"original.png", "processed":"processed.png"}
+        with open(f"{app.config['DATA_FOLDER']}/status.json", "w") as f:
+            json.dump(setup, f, indent=4)
 
 @app.before_request
 def checkAuthentication():

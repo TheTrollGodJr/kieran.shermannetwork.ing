@@ -31,7 +31,7 @@ def loadJson(filename=str, key=str):
             return json.load(f)[key]
         else:
             return json.load(f)
-
+        
 def setPhotoNum(number=int):
     """
     Set the photo number in the info.json file
@@ -58,12 +58,18 @@ def setInfoStatus(jsonKey=str, newValue=str, deleteNewValue=bool):
     with open(f"{current_app.config['DATA_FOLDER']}/status.json", "r") as f:
         data = json.load(f)
 
+    if deleteNewValue: data[jsonKey] = ""
+    else: data[jsonKey] = newValue
+
+    '''
     keyData: list = data[jsonKey]
+    print(keyData)
     if deleteNewValue:
         keyData.remove(newValue)
     else:
         keyData.append(newValue)
     data[jsonKey] = keyData
+    '''
 
     with open(f"{current_app.config['DATA_FOLDER']}/status.json", "w") as f:
             json.dump(data, f, indent=4)

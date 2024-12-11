@@ -2,3 +2,5 @@ credentials.env
 pictureTime/__pycache__/
 pictureTime/data/users.json
 pictureTime/data/info.json
+pictureTime/data/status.json
+api.env

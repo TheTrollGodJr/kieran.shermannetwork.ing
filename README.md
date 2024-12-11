@@ -1,1 +1,3 @@
-# kieran.shermannetwork.ing
+## Overview
+This websites purpose is to be sort of an archive of all of my work/projects. I am also using the to host my picture time project. My picture time project is a compilation of photos I have taken of myself every day since mid 2020. The website lets me upload and process photos.
+Because of the way I set up the picture time part of the website, it is built for only a single person to use and I don't plan on changing that in the near future as I only see myself using it. All processed images will need to be backed up to a local device because of server storage limitations *(this might change in the future)*. The video processing will also happen on the local device.

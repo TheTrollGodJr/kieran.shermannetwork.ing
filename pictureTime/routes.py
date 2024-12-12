@@ -89,15 +89,15 @@ def status():
     
 @mainBP.route("/<filename>")
 def download(filename: str):
-    if os.path.exists(f"{current_app.config["FILES_DIRECTORY"]}/{filename}") and filename != "":
-        return send_from_directory(current_app.config["FILES_DIRECTORY"], filename, as_attachment=True), 200
+    if os.path.exists(f"{current_app.config['FILES_DIRECTORY']}/{filename}") and filename != "":
+        return send_from_directory(current_app.config['FILES_DIRECTORY'], filename, as_attachment=True), 200
     return 404
 
 @mainBP.route("/delete/<filename>")
 def delete(filename: str):
     try:
-        if os.path.exists(f"{current_app.config["FILES_DIRECTORY"]}/{filename}") and filename != "":
-            os.remove(f"{current_app.config["FILES_DIRECTORY"]}/{filename}")
+        if os.path.exists(f"{current_app.config['FILES_DIRECTORY']}/{filename}") and filename != "":
+            os.remove(f"{current_app.config['FILES_DIRECTORY']}/{filename}")
             if "processed" in filename: setInfoStatus("processed", "")
             else: setInfoStatus("original", "")
             return 200

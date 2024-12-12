@@ -1,5 +1,5 @@
 from . import mainBP
-from flask import render_template, request, redirect, url_for, make_response, send_from_directory, abort, current_app, jsonify
+from flask import render_template, request, redirect, url_for, make_response, send_from_directory, current_app, jsonify, request
 from werkzeug.utils import secure_filename
 import os
 from .imgProcessing import processImg, setInfoStatus
@@ -89,18 +89,22 @@ def status():
     
 @mainBP.route("/<filename>")
 def download(filename: str):
-    if os.path.exists(f"{current_app.config['FILES_DIRECTORY']}/{filename}") and filename != "":
-        return send_from_directory(current_app.config['FILES_DIRECTORY'], filename, as_attachment=True), 200
-    return 404
+    if request.headers.get("X-API-KEY") == current_app.config["API_KEY"]:
+        if os.path.exists(f"{current_app.config['FILES_DIRECTORY']}/{filename}") and filename != "":
+            return send_from_directory(current_app.config['FILES_DIRECTORY'], filename, as_attachment=True), 200
+        return 404
+    return 401
 
 @mainBP.route("/delete/<filename>")
 def delete(filename: str):
-    try:
-        if os.path.exists(f"{current_app.config['FILES_DIRECTORY']}/{filename}") and filename != "":
-            os.remove(f"{current_app.config['FILES_DIRECTORY']}/{filename}")
-            if "processed" in filename: setInfoStatus("processed", "")
-            else: setInfoStatus("original", "")
-            return 200
-    except Exception as e:
-        print(f"Error deleting file: {e}")
-        return 404
+    if request.headers.get("X-API-KEY") == current_app.config["API_KEY"]:
+        try:
+            if os.path.exists(f"{current_app.config['FILES_DIRECTORY']}/{filename}") and filename != "":
+                os.remove(f"{current_app.config['FILES_DIRECTORY']}/{filename}")
+                if "processed" in filename: setInfoStatus("processed", "")
+                else: setInfoStatus("original", "")
+                return 200
+        except Exception as e:
+            print(f"Error deleting file: {e}")
+            return 404
+    return 401

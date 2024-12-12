@@ -99,6 +99,8 @@ if __name__ == "__main__":
     debug = os.getenv("DEBUG", "false").lower() == "true"
     port = int(os.getenv("PORT"))
 
+    app.config["API_KEY"] = os.getenv("API_KEY")
+
     app.register_blueprint(mainBP)
 
     app.run(host=host, debug=debug, port=port)

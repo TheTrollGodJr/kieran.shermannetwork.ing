@@ -5,3 +5,5 @@ pictureTime/data/info.json
 pictureTime/data/status.json
 api.env
 static/images/kieran.png
+testing.py
+errorLog.txt

@@ -6,3 +6,5 @@ opencv-python==4.8.1.78
 Pillow==10.1.0
 bcrypt==4.2.1
 cryptography==44.0.0
+tqdm==4.65.0
+piexif==1.1.3

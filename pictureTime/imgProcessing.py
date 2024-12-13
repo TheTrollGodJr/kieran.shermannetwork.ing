@@ -46,18 +46,24 @@ def setPhotoNum(number=int):
     with open(F"{current_app.config['DATA_FOLDER']}/info.json", "w") as f:
         json.dump(data, f, indent=4)
 
-def setInfoStatus(jsonKey=str, newValue=str):
+def setInfoStatus(jsonKey=str, newValue=str, deleteNewValue=bool):
     """
     Set info for the status.json file; used for download bot to backup photos. All key values have to be lists.
 
     Parameters:
         jsonKey (str): The json value you want to change
         newValue (str): Appends newValue to the key list
+        deleteNewValue (bool): Deletes newValue from the key list instead of appending it
     """
     with open(f"{current_app.config['DATA_FOLDER']}/status.json", "r") as f:
         data = json.load(f)
 
-    data[jsonKey] = newValue
+    keyData: list = data[jsonKey]
+    if deleteNewValue:
+        keyData.remove(newValue)
+    else:
+        keyData.append(newValue)
+    data[jsonKey] = keyData
 
     with open(f"{current_app.config['DATA_FOLDER']}/status.json", "w") as f:
             json.dump(data, f, indent=4)
@@ -244,6 +250,7 @@ def processImg(filepath=str):
     deltaX = rightEye[0] - leftEye[0]
     deltaY = rightEye[1] - leftEye[1]
 
+    '''
     rotated = horizontalEyeAlign(img, deltaX, deltaY)
     resized = resize(rotated, 700, deltaX, deltaY)
     
@@ -253,6 +260,17 @@ def processImg(filepath=str):
     
     imgPIL = Image.open(f"{current_app.config['DATA_FOLDER']}/tempfiles/temp.png")
     blackBackground = Image.open(f"{current_app.config['DATA_FOLDER']}/3000x5000.png")
+    Image.Image.paste(blackBackground, imgPIL, (1200 - leftEye[0], 2500 - leftEye[1]))'''
+
+    rotated = horizontalEyeAlign(img, deltaX, deltaY)
+    resized = resize(rotated, 700, deltaX, deltaY)
+    
+    resizedRGB = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
+    leftEye, rightEye = processFace(resized, resizedRGB)
+
+    imgPIL = Image.fromarray(resizedRGB)
+    
+    blackBackground = Image.new("RGB", (3000, 5000), (0,0,0))
     Image.Image.paste(blackBackground, imgPIL, (1200 - leftEye[0], 2500 - leftEye[1]))
 
     photoNum = loadJson("info", "photo_number")
@@ -269,7 +287,7 @@ def processImg(filepath=str):
     ###### CHANGE CODE FOR ADDING FRAME
 
 
-    os.remove(f"{current_app.config['UPLOAD_FOLDER']}/temp.png")
+    #os.remove(f"{current_app.config['UPLOAD_FOLDER']}/temp.png")
     os.rename(filepath, f"{current_app.config['FILES_DIRECTORY']}/{photoNum}.png")
 
     setInfoStatus("original", f"{photoNum}.png", False)

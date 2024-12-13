@@ -11,8 +11,8 @@ app = Flask(__name__)
 load_dotenv(os.path.join(os.path.dirname(os.path.realpath(__file__)), "credentials.env"))
 
 PATH = __file__.rsplit("\\", 1)[0].replace("\\", "/")
-UPLOAD_FOLDER = PATH + "/pictureTime/data/tempfiles"
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+#UPLOAD_FOLDER = PATH + "/pictureTime/data/tempfiles"
+#app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["DATA_FOLDER"] = f"{PATH}/pictureTime/data"
 app.config["ALLOWED_EXTENSIONS"] = {'png', 'jpg', 'jpeg'}
 app.config["FILES_DIRECTORY"] = f"{PATH}/static"
@@ -31,7 +31,7 @@ def setupUsersJsonFile():
             json.dump(setup, f, indent=4)
     
     if not os.path.exists(f"{app.config['DATA_FOLDER']}/status.json"):
-        setup = {"original":"original.png", "processed":"processed.png"}
+        setup = {"original":[], "processed":[]}
         with open(f"{app.config['DATA_FOLDER']}/status.json", "w") as f:
             json.dump(setup, f, indent=4)
 
@@ -103,4 +103,4 @@ if __name__ == "__main__":
 
     app.register_blueprint(mainBP)
 
-    app.run(host=host, debug=debug, port=port)
+    app.run(host=host, debug=debug, port=port)#, ssl_context='adhoc')

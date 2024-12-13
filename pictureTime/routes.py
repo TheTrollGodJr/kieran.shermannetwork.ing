@@ -28,7 +28,7 @@ def upload():
         if file and allowedFiles(file.filename):
             print("File is allowed")
             filename = secure_filename(file.filename)
-            filepath = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
+            filepath = os.path.join(current_app.config["FILES_DIRECTORY"], filename)
             print("Saving image")
             file.save(filepath)
             print("Image saved\nProcessing image")
@@ -89,22 +89,32 @@ def status():
     
 @mainBP.route("/<filename>")
 def download(filename: str):
-    if request.headers.get("X-API-KEY") == current_app.config["API_KEY"]:
-        if os.path.exists(f"{current_app.config['FILES_DIRECTORY']}/{filename}") and filename != "":
-            return send_from_directory(current_app.config['FILES_DIRECTORY'], filename, as_attachment=True), 200
-        return 404
-    return 401
+    try:
+        if request.headers.get("X-API-KEY") == current_app.config["API_KEY"]:
+            if os.path.exists(f"{current_app.config['FILES_DIRECTORY']}/{filename}") and filename != "":
+                return send_from_directory(current_app.config['FILES_DIRECTORY'], filename, as_attachment=True), 200
+            return "Not Found", 404
+        return "Unauthorized", 401
+    except:
+        return "Bad Request", 400
 
 @mainBP.route("/delete/<filename>")
 def delete(filename: str):
-    if request.headers.get("X-API-KEY") == current_app.config["API_KEY"]:
-        try:
-            if os.path.exists(f"{current_app.config['FILES_DIRECTORY']}/{filename}") and filename != "":
-                os.remove(f"{current_app.config['FILES_DIRECTORY']}/{filename}")
-                if "processed" in filename: setInfoStatus("processed", "")
-                else: setInfoStatus("original", "")
-                return 200
-        except Exception as e:
-            print(f"Error deleting file: {e}")
-            return 404
-    return 401
+    print("ran delete")
+    try:
+        if request.headers.get("X-API-KEY") == current_app.config["API_KEY"]:
+            print("KEY accepted")
+            try:
+                print(f"{current_app.config['FILES_DIRECTORY']}/{filename}")
+                if os.path.exists(f"{current_app.config['FILES_DIRECTORY']}/{filename}") and filename != "":
+                    os.remove(f"{current_app.config['FILES_DIRECTORY']}/{filename}")
+                    if "processed" in filename: setInfoStatus("processed", filename, True)
+                    else: setInfoStatus("original", filename, True)
+                    return "Success", 200
+            except Exception as e:
+                print(f"Error deleting file: {e}")
+                return "Not Found", 404
+        return "Unauthorized", 401
+    except Exception as e:
+        print(e)
+        return "Bad Request", 400

@@ -22,9 +22,7 @@ def delete(filename: str):
 def downloadPhoto(filename: str):
     header = {'X-API-KEY':key}
     response = requests.get(f"{url}/{filename}", headers=header)
-    print(response)
     if response.status_code == 200:
-        print("writing file")
         with open(f"{FILE_DIR}/{filename}", "wb") as f:
             f.write(response.content)
         delete(filename)

@@ -118,13 +118,10 @@ def processImg(filepath=str):
     rotated = horizontalEyeAlign(img, deltaX, deltaY)
     resized = resize(rotated, 700, deltaX, deltaY)
     
-    #cv2.imwrite(f"{args.output_dir}/temp.png", resized)
     resizedRGB = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
     leftEye, rightEye = processFace(resized, resizedRGB)
 
     imgPIL = Image.fromarray(resizedRGB)
-    
-    #imgPIL = Image.open(f"{args.output_dir}/temp.png")
     blackBackground = Image.new("RGB", (3000, 5000), (0,0,0))
     Image.Image.paste(blackBackground, imgPIL, (1200 - leftEye[0], 2500 - leftEye[1]))
     

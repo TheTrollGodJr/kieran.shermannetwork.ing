@@ -21,18 +21,19 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Add server to known_hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
       - name: Test SSH Connection
         run: |
           ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo 'SSH connection successful!'"
 
       - name: Deploy to server
         run: |
-          ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+          ssh -v -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << "EOF"
             cd /var/www/kieran.shermannetwork.ing
-            eval $(ssh-agent)
-            ssh-agent
-            ssh-add /var/www/.ssh/kieran.trollgod.xyz
-            git stash #stash any local changes during testing
+            git stash
             git pull
             source .venv/bin/activate
             pip install -r requirements.txt
@@ -42,8 +43,10 @@ jobs:
           EOF
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }}
-          SERVER_IP: shermannetwork.ing
-      - name: cleanup
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+
+      - name: Cleanup
+        if: always()
         run: |
-          rm ~/.ssh/*
-          echo removed ssh key
+          rm -rf ~/.ssh/*
+          echo "Removed SSH key"

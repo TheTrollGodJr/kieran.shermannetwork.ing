@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Projects</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        body {
+            padding: 0 20px; /* Add padding to the left and right sides */
+        }
+
+        .repo-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Optional: Adjust grid layout for smaller screens */
+        @media (max-width: 768px) {
+            .repo-cards {
+                grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .repo-cards {
+                grid-template-columns: 1fr; /* One column for very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Coding Projects</h1>
+    <a href="/">Home</a>
+</header>
+
+<!-- GitHub Repositories Section -->
+<div class="repo-cards" id="repos"></div>
+
+<script>
+    // Fetch GitHub repos
+    const username = 'TheTrollGodJR'; // Replace with your GitHub username
+    const apiUrl = `https://api.github.com/users/${username}/repos`;
+
+    // Function to fetch and display repositories
+    async function fetchRepos() {
+        try {
+            const response = await fetch(apiUrl);
+            const repos = await response.json();
+            const reposContainer = document.getElementById('repos');
+
+            // Loop through the repositories and create a card for each
+            repos.forEach(repo => {
+                const repoCard = document.createElement('div');
+                repoCard.classList.add('section-card');
+                
+                repoCard.innerHTML = `
+                    <h4><a href="${repo.html_url}" target="_blank">${repo.name}</a></h4>
+                    <p>${repo.description || 'No description available.'}</p>
+                    <p><strong>Language:</strong> ${repo.language || 'Not specified'}</p>
+                `;
+                
+                reposContainer.appendChild(repoCard);
+            });
+        } catch (error) {
+            console.error('Error fetching repos:', error);
+        }
+    }
+
+    // Call the function to fetch and display the repositories
+    fetchRepos();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume</title>
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">-->
+    <style>
+        body {
+            background-color: #292828; /* Darker background for contrast */
+            color: rgb(212, 209, 203); /* Light gray text */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        header {
+            padding-bottom: 15px;
+            text-align: center;
+            background-color: rgb(26, 28, 29); /* Darker header background */
+            border-bottom: 1px solid rgb(118, 109, 97); /* Subtle border */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Soft shadow */
+        }
+        .hero {
+            text-align: center;
+            color: rgb(232, 230, 227);
+            flex-direction: column;
+            align-items: center;
+            background-color: rgb(35, 35, 35);
+            width: 100%;
+        }
+        h1 {
+            color: #1ABC9C;
+        }
+        .hero h1 {
+            color: #1ABC9C;
+            padding-top: 20px;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: rgb(150, 150, 200);
+        }
+        .hero p {
+            text-align: center; 
+            max-width: 40%;
+            margin: 0 auto;    
+        }
+        a {
+            color: #E67E22;
+        }
+        .footer {
+            height: 75px;
+            background-color: rgb(35, 35, 35);
+        }
+        hr {
+            max-width: 33%;
+            margin: 30px auto;
+        }
+        @media (min-width: 320px) {
+            p {
+                text-align: center; 
+                max-width: 60%;
+                margin: 0 auto;    
+            }
+        }
+        </style>
+</head>
+<body>
+    <header>
+        <h1>Resume</h1>
+        <a href="/">Home</a>
+    </header>
+    <div class="main">
+        <div class="hero">
+            <br>
+            <p>Kieran Sherman<br>Syracuse, UT<br>kieran.s.i.sherman@gmail.com<br>kieran@shermannetwork.ing</p>
+            <br>
+
+            <h1>Employment</h1>
+            <h2>VEX Tournament Manager</h2>
+            <p>VEX is a company that runs robotics tournaments worldwide. The tournament manager is the person responsible for running and maintaining the computers behind the tournament and making sure everybody is able to do what they need. These tournaments are typically 20-40 teams (2-6 people per team).I have run 10-20 tournaments. These tournaments range from small local tournaments to state-wide tournaments with teams from all over the western USA. I have been doing this since 2022 and am still currently doing it.</p>
+            <hr>
+            
+            <h1>Volunteer Work</h1>
+            <h2>VEX Tournament Judge</h2>
+            <p>This involves interviewing teams at VEX tournaments to see if they qualify for any awards or nominations. This also involves reading through team notebooks and grading them based on a rubric focused on the engineering design process. I started doing this in 2023 and am still currently doing it.</p>
+            <h2>Tournament Scorekeeper</h2>
+            <p>This involves watching and scoring matches in a VEX tournament. I have scored at 20-30 tournaments including state and regional tournaments. I mainly did this from 2019 to 2021.</p>
+            <hr>
+            
+            <h1>Projects</h1>
+            <p>I have worked on a lot of projects mostly focusing on computer science/programming. However, I have also worked on other projects such as photography, robotics, and conlangs <i>(constructed languages)</i>.</p>
+            <h2>Daily Photos</h2>
+            <div>
+                <a href="/picture-time/"><i>Picture Time</i></a>
+            </div>
+            <br>
+            <p>This is a computer science project that I did for my high school capstone project. Starting in 2020, I took a photo of myself everyday so that it could be compiled into a time lapse video so you can see me over several years. I wrote a program in python that takes each photo in order from when they were taken and uses facial recognition and math to align the faces in each photo in a video for smooth transitioning. I later turned it into a website where I can upload photos everyday and have them automatically processed and updated. I also developed an API to send and receive processed photos and videos between clients and the server. I started writing the code for this project in 2023 and plan on having it completely finished by January 2025.</p>
+            <h2>Asteriods</h2>
+            <div>
+                <a href="https://github.com/TheTrollGodJr/Asteroids"><i>Link to Project</i></a>
+            </div>
+            <br>
+            <p>For the final project in my C++ class I recreated the Atari game Asteroids. I did this with full graphics integration in Windows. This project required low level understanding of computers along with a good amount of trigonometry and collision algorithms. This is a project I made in a week in December, 2024.</p>
+            <h2>Shadian</h2>
+            <p>This is a conlang I have been developing for the last few years. This is a constructed language with its own writing system, grammar, and vocabulary. It’s still a work in progress, but currently you can write and speak simple sentences. This is a project I started.</p>
+            <hr>
+            
+            <h1>Awards</h1>
+            <h2>VEX World Championship Think Award</h2>
+            <p>This is an award my VEX robotics team won at the world championships in Dallas, Texas. This award is given to the team with an exceptional program that solves a key problem in the competition game. We received this award in mid 2022.</p>
+            <h2>World-Wide Example Notebook</h2>
+            <div>
+                <a href="https://recf.org/documents/2022/09/sample-engineering-notebook-team-90049b.pdf/"><i>Link to Notebook</i></a>
+            </div>
+            <br>
+            <p>In VEX competitions, you write engineering notebooks documenting your entire process in developing, building, testing, and fixing your robot. These notebooks are one of the most important parts of the competition and are what qualify you for many awards. RECF is a company that works closely with VEX for running tournaments world wide. The engineering notebook I wrote in 2022 was chosen as the single Junior High example notebook for the entire world and is still listed as the only one.</p>
+            <h2>State Championship</h2>
+            <p>From years 2019 to 2022, my robotics team made it to the state championship every year and ranked in the top three teams – this qualified us for the World Championship each year we did robotics. In 2022 specifically, we won the state championship ranked first place along with earning the Excellence Award – the best award you can receive at a tournament.</p>
+            <hr>
+            
+            <h1>Education</h1>
+            <p>In May of 2025 I will be graduating NUAMES early college high school with my high school diploma along with a general associate's degree. I have been accepted into Weber State as of my graduation with a Dean's Scholarship.</p><br>
+            <p>I will also be graduating in May of 2025 with a certificate in Computer Science Essentials.</p><br>
+            <p>At graduation, I will qualify to receive a minor in computer science, but I plan on taking more advanced classes and majoring in the instead.</p><br>
+        </div>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>

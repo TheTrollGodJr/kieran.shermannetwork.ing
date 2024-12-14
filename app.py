@@ -38,6 +38,7 @@ def setupUsersJsonFile():
 @app.before_request
 def checkAuthentication():
     #if request.endpoint == "denied": return None
+    return
     endpoint = request.endpoint
     #print(endpoint)
 
@@ -94,6 +95,9 @@ def pageNotFound(e):
 
 if __name__ == "__main__":
     setupUsersJsonFile()
+
+    if not os.path.exists(app.config["FILES_DIRECTORY"]):
+        os.makedirs(app.config["FILES_DIRECTORY"])
 
     host = os.getenv("HOST")
     debug = os.getenv("DEBUG", "false").lower() == "true"

@@ -28,7 +28,7 @@ def downloadPhoto(filename: str, original: bool):
         if original:
             with open(f"{ORIGIN_DIR}/{filename}", "wb") as f: f.write(response.content)
         else:
-            with open(f"{PROC_DIR}/{filename}", "wb") as f: f.write(response.content)
+            with open(f"{PROC_DIR}/{filename.split('-')[0]}.png", "wb") as f: f.write(response.content)
         delete(filename)
     elif response == 404:
         pass                ########## tkinter error
@@ -41,15 +41,12 @@ def checkBackupStatus():
         data = response.json()
         for item in data["original"]: downloadPhoto(item, True)
         for item in data["processed"]: downloadPhoto(item, False)
-        return data["processed"]
+        return [f"{item.split('-')[0]}.png" for item in data["processed"]]
     elif response == 404:
         pass                ########## tkinter error
 
-#def processVideo():
-#    imgs = os.listdir(FILE_DIR)
-
 def appendVideo(processedFiles: list):
-    if os.path.exists(f"{VIDEO_DIR}/out.mp4"):
+    if not os.path.exists(f"{VIDEO_DIR}/out.mp4"):
         compileNewVideo()
     else:
         #os.rename(f"{VIDEO_DIR}/out.mp4", f"{VIDEO_DIR}/old.mp4")
@@ -80,30 +77,24 @@ def compileNewVideo():
     count = 0
     first = True
     h, w = 0, 0
-    files = sorted(os.listdir(ORIGIN_DIR), key=lambda x: int(os.path.splitext(x)[0]))
+    files = sorted(os.listdir(PROC_DIR), key=lambda x: int(os.path.splitext(x)[0]))
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = None
 
-    while True:
-        try:
-            img = cv2.imread(f"{ORIGIN_DIR}/{count}.png")
-            count += 1
-            print(f"{count} images processed")
-            if first:
-                h, w, _ = img.shape
-                out = cv2.VideoWriter(f"{VIDEO_DIR}/out.mp4", fourcc, 20, (w, h))
-                first = False
+    for file in files:
+        img = cv2.imread(f"{PROC_DIR}/{file}")
+        count += 1
+        if first:
+            h, w, _ = img.shape
+            out = cv2.VideoWriter(f"{VIDEO_DIR}/out.mp4", fourcc, 20, (w, h))
+            first = False
 
-            if img is None:
-                raise FileNotFoundError(f"Image {count}.png could not be read. Skipping.")
-            
-            imgResized = videoCrop(img, (h, w))
-            out.write(imgResized)
-
-        except Exception as e:
-            if count>= int(files[-1].split(".")[0]): break
-            #displayError(e) ## doesn't except e as a value, fix that
+        if img is None:
+            raise FileNotFoundError(f"Image {count}.png could not be read. Skipping.")
+        
+        imgResized = videoCrop(img, (h, w))
+        out.write(imgResized)
     
     out.release()
 

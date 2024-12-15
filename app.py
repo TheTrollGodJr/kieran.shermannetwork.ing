@@ -61,6 +61,8 @@ def checkAuthentication():
 
 @app.route("/")
 def index():
+    userAgent = request.headers.get("User-Agent")
+    if "Mobi" in userAgent: return render_template("index-mobile.html")
     return render_template("index.html")
 
 @app.route("/coding")

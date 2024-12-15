@@ -38,7 +38,7 @@ def setupUsersJsonFile():
 @app.before_request
 def checkAuthentication():
     #if request.endpoint == "denied": return None
-    return
+    #return
     endpoint = request.endpoint
     #print(endpoint)
 

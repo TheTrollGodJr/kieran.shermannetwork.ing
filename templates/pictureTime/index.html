@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture Time</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pictureTime/index.css')}}">
+</head>
+<body>
+    <header>
+        <h1>Picture Time</h1>
+        <nav>
+            <ul>
+                <li><a href="/picture-time/upload">Upload Photo</a></li>
+                <li><a href="/picture-time/video"> Watch Video</a></li>
+                <li><a href="/"> Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="accordion-container">
+        <h1>About The Project</h1>
+    
+        <div class="accordion">
+            <h2 class="accordion-header">Concept</h2>
+            <div class="accordion-content">
+                <p>
+                    In mid 2020, I saw a
+                    <a href="https://www.youtube.com/watch?v=65nfbW-27ps&ab_channel=HugoCornellier"> Youtube video </a>
+                    of a guy taking a photo of himself everyday for several years and turning it into a timelapse. So, on July 10th, 2020, at 13 years old, I started taking a photo on myself everyday. I have been fairly consistent up until writing this. I think in total I have missed about 100 days. I startd this project with no real end goal in mind, and in some ways I still don't. I didnt -- and still don't -- plan on ever stopping. Back in 2020, I set a reminder on my phone for 16:30 everday called 'Picture Time,' and that became the name of this project among myself and friends.
+                </p>
+            </div>
+        </div>
+    
+        <div class="accordion">
+            <h2 class="accordion-header">Project</h2>
+            <div class="accordion-content">
+                <p>I realized very quickly that it would be difficult to edit all the photos together into a timelapse video, so I procrastinated doing it. For two years I took photos nearly everyday without editing a single one into a video. Then, in 2022, I decided I wanted to start working on the video. I spent 10 hours straight editing photos into a video and only got through about 6 months worth of photos. This is what prompted me to make this website.</p>
+                <p>At the time of trying to edit them together, I had gotten to a intermedite skill level in Python and decided that I was going to write a program to compile them in to a video for me. This was a difficult project. What needs to happen in order for it to work, is I need to first, align the eyes on the same horizontal line. Second, scale the face enough so that the distance between the eyes matches in every photo. And third, put that new photo onto a black background so that every photo is the same size.</p>
+                <p>I start work on the program in spring of 2022 and after several months of consistently working on it several times a week, I got something that worked -- very inefficently. I ran the program and it took about 20 hours to process the photos and another 6 to make the video. Since then, I have optimized it a lot more. At the time of writing this (dec 2024), I can process 1300 photos in about 10 minutes and create the video in half that.</p>
+            </div>
+        </div>
+    
+        <div class="accordion">
+            <h2 class="accordion-header">Website</h2>
+            <div class="accordion-content">
+                <p>Back in 2022 when I wrote the original program, I planned to use it as my high school capstone project as almost a proof of concept of something I made. So, when I finished it and it worked, I didn't touch this project for about a year. That was until 2023 when I wanted to update the video and tried running the program again, and I couldn't get it to work. During that past year when I hadn't used this program, I had still be coding and had gotten better. That combined with the fact code is never readable, lead me to rewriting it to make it better.</p>
+                <p>However, somewhere in the process of rewriting it, somebody suggested that I turn it into a website where I can upload a photo everyday and have everything automated. So that is what I started working on. For out high school capstone project we need a website showcasing what we have done during highschool and what not, so I figured I would combine the two. And that is what you are looking at. I spent several months thnking about how I would conceptually build this website and eventually started work on it. It wasn't until fall 2024 that I actually made any significant progess on it.</p>
+                <p>There will probably be a lot of changes and updates in the future, but at the moment everything works. I have it fully automated so I can upload a photo and have it automatically added to the video that you can find on the <a href="/picture-time/video">video page</a>.</p>
+                
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/pictureTimeIndex.js')}}"></script>
+
+</body>
+</html>

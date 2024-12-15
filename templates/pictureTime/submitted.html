@@ -4,43 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Please Wait</title>
-    <style>
-        body, html {
-            color: #dfcfcf;
-            background-color: #282828;
-            height: 100%;
-            margin: 0;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-        }
-        .container {
-            background-color: #404040;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            text-align: center;
-            width: 90%;
-            max-width: 500px;
-        }
-        .container h1 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
-    </style>
-    <script type="text/javascript">
-        function redirectToPage() {
-            setTimeout(function() {
-                window.location.href = "/";
-            }, 1000);
-        }
-    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pictureTime/submitted.css') }}">
 </head>
 <body onload="redirectToPage()">
     <div class="container">
         <h1>File Uploaded</h1>
         <p>Please wait, you are being redirected...</p>
     </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/redirect.js') }}"></script>
 </body>
 </html>

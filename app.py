@@ -10,7 +10,12 @@ import json
 app = Flask(__name__)
 load_dotenv(os.path.join(os.path.dirname(os.path.realpath(__file__)), "credentials.env"))
 
-PATH = __file__.rsplit("\\", 1)[0].replace("\\", "/")
+def getPath():
+    path = __file__.rsplit("\\", 1)[0].replace("\\", "/")
+    if "/app.py" in path: path = path.split("/app.py")[0]
+    return path
+
+PATH = getPath()
 #UPLOAD_FOLDER = PATH + "/pictureTime/data/tempfiles"
 #app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["DATA_FOLDER"] = f"{PATH}/pictureTime/data"

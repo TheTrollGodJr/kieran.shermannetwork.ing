@@ -20,6 +20,9 @@ app.config["PROTECTED_PAGES"] = {"main.upload", "main.submitted"}
 app.config["MOBILE_ONLY_PAGES"] = {"main.upload", "main.submitted", "main.login"}
 
 def setupUsersJsonFile():
+    if not os.path.exists(app.config["DATA_FOLDER"]):
+        os.mkdir(app.config["DATA_FOLDER"])
+
     if not os.path.exists(f"{app.config['DATA_FOLDER']}/users.json"):
         setup = {"username":"password", "username2":"password2"}
         with open(f"{app.config['DATA_FOLDER']}/users.json", "w") as f:

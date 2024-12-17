@@ -1,11 +1,12 @@
 # Todo list
--[ ] make program to backup images to a local device
--[ ] add a check to make sure the photos to be backed up aren't more than 7 days old
+-[] make program to backup images to a local device
+-[] add a check to make sure the photos to be backed up aren't more than 7 days old
     - if they are, delete them.
--[ ] make the main index page mobile friendly
--[ ] make the picture time index page -- also needs to be mobile friendly
--[ ] add resume page
--[ ] redo functions for generating a video
+    
+-[] make the main index page mobile friendly
+-[] make the picture time index page -- also needs to be mobile friendly
+-[] add resume page
+-[] redo functions for generating a video
     - these functions won't be used by the server
     - since all the data is being backed up locally, use the same program that backs them up to generate
     a new video/append to an existing video using the backup images.

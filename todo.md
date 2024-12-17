@@ -9,7 +9,7 @@
 -[] redo functions for generating a video
     - these functions won't be used by the server
     - since all the data is being backed up locally, use the same program that backs them up to generate
-    a new video/append to an existing video using the backup images.
+        a new video/append to an existing video using the backup images.
     - this minimizes server storage usage
     - have an upload page to upload the video to be shown on the website -- require a key/password to upload
     

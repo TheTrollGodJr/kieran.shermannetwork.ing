@@ -20,6 +20,9 @@ app.config["PROTECTED_PAGES"] = {"main.upload", "main.submitted"}
 app.config["MOBILE_ONLY_PAGES"] = {"main.upload", "main.submitted", "main.login"}
 
 def setupUsersJsonFile():
+    if not os.path.exists(app.config["DATA_FOLDER"]):
+        os.mkdir(app.config["DATA_FOLDER"])
+
     if not os.path.exists(f"{app.config['DATA_FOLDER']}/users.json"):
         setup = {"username":"password", "username2":"password2"}
         with open(f"{app.config['DATA_FOLDER']}/users.json", "w") as f:
@@ -38,6 +41,7 @@ def setupUsersJsonFile():
 @app.before_request
 def checkAuthentication():
     #if request.endpoint == "denied": return None
+    #return
     endpoint = request.endpoint
     #print(endpoint)
 
@@ -60,6 +64,8 @@ def checkAuthentication():
 
 @app.route("/")
 def index():
+    userAgent = request.headers.get("User-Agent")
+    if "Mobi" in userAgent: return render_template("index-mobile.html")
     return render_template("index.html")
 
 @app.route("/coding")
@@ -94,6 +100,9 @@ def pageNotFound(e):
 
 if __name__ == "__main__":
     setupUsersJsonFile()
+
+    if not os.path.exists(app.config["FILES_DIRECTORY"]):
+        os.makedirs(app.config["FILES_DIRECTORY"])
 
     host = os.getenv("HOST")
     debug = os.getenv("DEBUG", "false").lower() == "true"

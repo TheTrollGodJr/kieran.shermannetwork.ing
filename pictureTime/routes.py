@@ -22,18 +22,18 @@ def upload():
         
         file = request.files['file']
         if file.filename == '':
-            print("No file name")
+            #print("No file name")
             return redirect(request.url)
         
         if file and allowedFiles(file.filename):
-            print("File is allowed")
+            #print("File is allowed")
             filename = secure_filename(file.filename)
             filepath = os.path.join(current_app.config["FILES_DIRECTORY"], filename)
-            print("Saving image")
+            #print("Saving image")
             file.save(filepath)
-            print("Image saved\nProcessing image")
+            #print("Image saved\nProcessing image")
             processImg(filepath)
-            print("Image processed")
+            #print("Image processed")
 
             return redirect(url_for("main.submitted"))
     return render_template("pictureTime/upload.html")
@@ -100,7 +100,7 @@ def download(filename: str):
 
 @mainBP.route("/delete/<filename>")
 def delete(filename: str):
-    print("ran delete")
+    #print("ran delete")
     try:
         if request.headers.get("X-API-KEY") == current_app.config["API_KEY"]:
             print("KEY accepted")
@@ -115,6 +115,27 @@ def delete(filename: str):
                 print(f"Error deleting file: {e}")
                 return "Not Found", 404
         return "Unauthorized", 401
+    except Exception as e:
+        print(e)
+        return "Bad Request", 400
+
+@mainBP.route("/upload-video", methods=['GET', 'POST'])
+def uploadVideo():
+    try:
+        if request.headers.get("X-API-KEY") == current_app.config("API_KEY"):
+            if 'file' not in request.files:
+                return "Not Found", 404
+            file = request.files['file']
+            if file.filename == '':
+                return "Not Found", 404
+            elif "mp4" not in file.filename:
+                return "Unsupported Media Type", 415
+            
+            #filename = secure_filename(file.filename)
+            filepath = f"{current_app.config['FILES_DIRECTORY']}/video/out.mp4"
+            if os.path.exists(filepath): os.remove(filepath)
+            file.save(filepath)
+
     except Exception as e:
         print(e)
         return "Bad Request", 400

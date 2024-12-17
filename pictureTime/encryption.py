@@ -24,6 +24,6 @@ def checkPassword(password, hash):
 
 if __name__ == "__main__":
     #setupJsonFile(f"{PATH}\\data\\users.json")
-    hash = genHash("")
+    hash = genHash(" ")
     print(hash)
     #print(checkPassword("this is aa test", hash))

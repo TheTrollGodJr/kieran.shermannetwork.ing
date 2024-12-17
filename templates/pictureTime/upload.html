@@ -4,83 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Picture Time Upload</title>
-    <style>
-        body, html {
-            color: #dfcfcf;
-            background-color: #282828;
-            height: 100%;
-            margin: 0;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-            flex-direction: column; /* Stack elements vertically */
-            text-align: center;
-        }
-        .container {
-            background-color: #404040;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            text-align: center;
-            width: 90%;
-            max-width: 500px;
-        }
-        .container h1 {
-            margin-bottom: 20px;
-        }
-        .file-input-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .file-input-container input[type="file"] {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 40px;
-            cursor: pointer;
-        }
-        .file-input-label {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #606060;
-            color: #dfcfcf;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        .file-input-label:hover {
-            background-color: #505050;
-        }
-        .file-name {
-            display: block;
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #b0b0b0;
-        }
-        button {
-            background-color: #606060;
-            color: #dfcfcf;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            margin: 10px 0;
-        }
-        button:hover {
-            background-color: #505050;
-        }
-        .bottom-container {
-            margin-top: 5px;
-            width: 90%;
-            max-width: 500px;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pictureTime/upload.css') }}">
 </head>
 <body>
     <div class="container">
@@ -100,23 +24,11 @@
         <form method="get" action="/picture-time/logout">
             <button type="submit">Logout</button>
         </form>
-        <form method="get" action="/picture-time/video">
-            <button type="submit">Video</button>
+        <form method="get" action="/picture-time/">
+            <button type="submit">Home</button>
         </form>
     </div>
 
-    <script>
-        // Update file name display when a file is selected
-        const fileInput = document.getElementById('file-input');
-        const fileNameDisplay = document.getElementById('file-name');
-
-        fileInput.addEventListener('change', function() {
-            if (fileInput.files.length > 0) {
-                fileNameDisplay.textContent = fileInput.files[0].name;
-            } else {
-                fileNameDisplay.textContent = 'No file chosen';
-            }
-        });
-    </script>
+    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
 </body>
 </html>

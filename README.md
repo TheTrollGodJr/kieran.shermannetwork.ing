@@ -24,3 +24,6 @@ There is a python file named **mass-processing.py**. This file is used to proces
 - --process-order, -p: Choose in what order to process photos. All processed photos will be numbers 1-x depending no matter the option you choose. *file-order* sorts by the file order on your computer. *number-order* sorts in numerical number. *date-ISO* sorts it according to the image name following the universal ISO 8601 format. *date-metadata* sorts according to the image metadata; if there is none the image will be skipped. The default is date-ISO. This option only applies to image compiling. When doing date-ISO or date-metadata, the date will be added to the processed photos EXIF data under *Date Taken*. ***date-metadata isn't supported as of writing this***. 
 - --count-start. -c: Choose what number to start on when processing photos. By default, when processing photos, it will start at 0 and count up. Setting this value will change the starting numbe from 0 to whatever you set it as.
 - --input-start, -s: Choose what file to start processing with in the input_dir. Only enter the file name. The code will sort and process images based on this and the sorting method you choose. Any file in input_dir dating before this file or that is sequentially before this file will not be processed.
+
+# TODO list
+[Todo List](./todo.md)
